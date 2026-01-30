@@ -8,6 +8,8 @@ import random
 
 tokenbot = "8299838856:AAH7LUWizLYEsXu7wgCWdTh4D1WW7vjE7Gc"
 
+ADMINS = [123123]
+
 bot = Bot(tokenbot)
 dp = Dispatcher()
 
@@ -17,11 +19,19 @@ async def start(message):
         text = "Test1",
         callback_data="test1"
     )
+    button2 = InlineKeyboardButton(
+        text = "Мой АЙДИ",
+        callback_data="userid"
+    )
+    button3 = InlineKeyboardButton(
+        text = "Кнопка 3",
+        callback_data="Display"
+    )
     keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[[button1]]
+        inline_keyboard=[[button1, button2], [button3]]
     )
     await message.answer(
-        text="Привет! драсте ё",
+        text="Привет! нажми на какую-нибуть кнопку:",
         reply_markup=keyboard
     )
 
@@ -70,9 +80,18 @@ async def text_handler(message):
 # ===== Обработка нажатия кнопки =====
 @dp.callback_query()
 async def callback_handler(callback):
+    player = callback.from_user
     if callback.data == "test1":
         await callback.message.answer(
             "Ну кароче вот тест 123123132"
+        )
+    elif callback.data == "userid":
+        await callback.message.answer(
+            player.id
+        )
+    elif callback.data == "Display":
+        await callback.message.answer(
+            player.first_name
         )
 
         # обязательно отвечаем на callback (чтобы не было «часиков»)
