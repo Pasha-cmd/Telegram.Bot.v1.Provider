@@ -6,7 +6,6 @@ from aiogram.types.input_file import FSInputFile
 import time
 import random
 
-tokenbot = "8299838856:AAH7LUWizLYEsXu7wgCWdTh4D1WW7vjE7Gc"
 
 bot = Bot(tokenbot)
 dp = Dispatcher()
